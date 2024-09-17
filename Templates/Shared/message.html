@@ -1,0 +1,13 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'CSS/message.css' %}">
+{% for message in messages %}
+    <div class="toast notification bg-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}"
+         role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast-body">
+            {{ message|safe }}
+            <button type="button" class="msg-btn btn-close float-end" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+{% endfor %}

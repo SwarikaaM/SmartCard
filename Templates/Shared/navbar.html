@@ -1,0 +1,59 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'CSS/navbar.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+<div class="head">
+    <a href="{% url 'homepage' %}" class="logo">Project</a>
+    <div class="mean-toggle"></div>
+    <nav>
+        {% with request.resolver_match.url_name as url_name %}
+            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link {% if url_name == 'homepage' %}active{% endif %}" href="{% url 'homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+                {% if not request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'loginpage' %}active{% endif %}"
+                           href="{% url 'loginpage' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'registerpage' %}active{% endif %}"
+                           href="{% url 'registerpage' %}">Register</a>
+                    </li>
+                {% else %}
+                    {% if request.user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'pannelget' %}active{% endif %}"
+                        href="{% url 'pannelget' %}">Esp Pannel</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'logoutpage' %}active{% endif %}"
+                           href="{% url 'logoutpage' %}">Logout</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        {% endwith %}
+    </nav>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.mean-toggle').click(function () {
+            $('.mean-toggle').toggleClass('active')
+            $('nav').toggleClass('active')
+        })
+    })
+</script>
+
+</body>
+<script src="{% static 'JS/navbar.js' %}"></script>

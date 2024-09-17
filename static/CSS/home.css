@@ -1,0 +1,33 @@
+input[type=file]{
+    display:none;
+}
+
+div p{
+    margin-top: 30px;
+}
+
+label{
+    border-radius: 5px;
+    display: inline;
+    background-color: rgb(49, 49, 49);
+    color: whitesmoke;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
+    transition: background-color 1s ease;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
+}
+
+label:hover{
+    background-color: rgb(0, 79, 143);
+
+}
+
+.error{
+    margin-top: 7px;
+}
+
+#label1,#label2{
+    margin-left: 10px;
+    color: red;
+}

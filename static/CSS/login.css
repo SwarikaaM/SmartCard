@@ -1,0 +1,9 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css');
+
+.error{
+    color: firebrick;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    text-align: center;
+    position: static;
+}

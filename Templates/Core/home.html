@@ -1,0 +1,91 @@
+{% extends 'Shared/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static "CSS/home.css" %}">
+    <div class="container">
+        <div class="doc_manage">
+            {% if not usr.Document_Status == 'ACCEPTED' %}
+                {% if usr.Rejection_Reason != '' and usr.Document_Status == 'REJECTED' %}
+                    <div class="alert alert-danger text-center" role="alert">
+                        Your Documents Was Rejected!. <a style="color: blue" data-bs-toggle="modal"
+                                                         data-bs-target="#uploadDocument">Upload Again</a>
+                        <br>
+                        <small>Reason: {{ rej }}</small>
+                    </div>
+                {% elif usr.Document_Status == 'NOT SUBMITTED' %}
+                    <div class="alert alert-warning text-center" role="alert">
+                        Look's Like Your Documents Are Not In Our Database!. <a style="color: blue"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#uploadDocument">Upload
+                        Now</a>
+                    </div>
+                {% elif usr.Document_Status == 'PENDING' %}
+                    <div class="alert alert-info text-center" role="alert">
+                        Your Documents Are Under Verification!.
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        {#        <div class="view document">#}
+        {#            {% for filename, file_content in Documents.items %}#}
+        {#                <img src="data:image/png;base64,{{ file_content }}" alt="{{ filename }}">#}
+        {#            {% endfor %}#}
+        {#        </div>#}
+    </div>
+
+    <!-- Modal -->
+    {% if not usr.Document_Status == 'ACCEPTED' %}
+        <div class="modal fade" id="uploadDocument" tabindex="-1" aria-labelledby="uploadDocumentLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="uploadDocumentLabel">Upload Your Documents</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <form action="/" method="post" enctype="multipart/form-data" id="Upolad_form">
+                        <div class="modal-body">
+                            <h1 style="height: 2rem;
+                                        font-weight: bold;
+                                        margin-top: 2rem;
+                                        padding: 0%;">
+                                Please upload the documents to get your smart card
+                            </h1>
+                            {% csrf_token %}
+                            {% render_field form.User class="hidden" %}
+                            <p style="margin-top: 20px;">
+                                <label for="id_Pan_Card">Upload pan card image</label><strong
+                                    id="label1"></strong>
+                                {% render_field form.Pan_Card %}
+                                {% if form.Pan_Card.errors %}
+                                    <div class="error">
+                                        <small class="error">{{ form.Pan_Card.errors }}</small>
+                                    </div>
+                                {% endif %}
+                            </p>
+                            <p>
+                                <label for="id_Aadhar_Card">Upload aadhar card image</label><strong
+                                    id="label2"></strong>
+                                {% render_field form.Aadhar_Card %}
+                                {% if form.Aadhar_Card.errors %}
+                                    <div class="error">
+                                        <small class="error">{{ form.Aadhar_Card.errors }}</small>
+                                    </div>
+                                {% endif %}
+                            </p>
+                            <br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                            </button>
+                            <a id="Upload_details" class="btn btn-primary">UPLOAD</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <script src="{% static "JS/home.js" %}"></script>
+{% endblock %}

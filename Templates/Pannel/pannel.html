@@ -1,0 +1,55 @@
+{% extends "Shared/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+{% if Mode != "server down" %}
+    
+<div class="container mt-5">
+    <h1 class="fw-bold ">Current Mode : {{ Mode }}</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <form action="{% url 'changemode' %}" method="post" class="p-4 border rounded shadow-sm bg-light">
+                <div class="mb-3">
+                    <label for="id_mode" class="form-label fw-bold">Change Mode to:</label>
+                    {% render_field form.mode class="form-control" placeholder="Enter the mode" %}
+                </div>
+                
+                <div id="formfield2" class="mb-3">
+                    <label for="id_aadharno" class="form-label fw-bold">Enter Aadhar no:</label>
+                    {% render_field form.aadharno class="form-control" placeholder="Enter your Aadhar number" %}
+                </div>
+                
+                <div id="formfield3" class="mb-3">
+                    <label for="id_panno" class="form-label fw-bold">Enter Pan no:</label>
+                    {% render_field form.panno class="form-control" placeholder="Enter your PAN number" %}
+                </div>
+                
+                {% csrf_token %}
+                
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% else %}
+server Down
+{% endif %}
+    <script>
+    mode = document.getElementById("id_mode")
+    ano = document.getElementById("formfield2")
+    pno = document.getElementById("formfield3")
+    mode.addEventListener('click',hidefield)
+    function hidefield(){
+        if(mode.value == 'reader'){
+            ano.style.display = "none"
+            pno.style.display = "none"
+        }
+        else if (mode.value == 'writer'){
+            ano.style.display = "block"
+            pno.style.display = "block"
+        }
+    }
+    document.addEventListener("DOMContentLoaded",hidefield)
+    </script>
+{% endblock %}

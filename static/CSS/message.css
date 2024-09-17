@@ -1,0 +1,14 @@
+.notification {
+    top: 6rem;
+    right: 1rem;
+    color: white;
+    position: fixed;
+    z-index: 99999;
+}
+
+.msg-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
